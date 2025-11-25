@@ -138,6 +138,7 @@ export class GiftStackingGame extends Phaser.Scene {
   private stackText!: Phaser.GameObjects.Text;
   private hintText!: Phaser.GameObjects.Text;
   private letterHints: string[] = [];
+  private availableLetters: string[] = [];
   private timeRemaining = 60;
   private timerEvent!: Phaser.Time.TimerEvent;
   private recipient = '';
@@ -161,6 +162,7 @@ export class GiftStackingGame extends Phaser.Scene {
     this.gameOver = false;
     this.currentStack = 0;
     this.letterHints = [];
+    this.availableLetters = this.getUniqueLetters();
     this.timeRemaining = 60;
     this.stackedGifts = [];
     this.pointerX = null;
@@ -537,12 +539,22 @@ export class GiftStackingGame extends Phaser.Scene {
     sprite.destroy();
   }
 
-  private revealHint() {
+  private getUniqueLetters(): string[] {
     const letters = this.recipient.replace(/\s/g, '').toUpperCase().split('');
-    if (letters.length === 0) {
+    return [...new Set(letters)];
+  }
+
+  private revealHint() {
+    // Refill available letters if exhausted
+    if (this.availableLetters.length === 0) {
+      this.availableLetters = this.getUniqueLetters();
+    }
+    if (this.availableLetters.length === 0) {
       return;
     }
-    const letter = letters[Phaser.Math.Between(0, letters.length - 1)];
+    const index = Phaser.Math.Between(0, this.availableLetters.length - 1);
+    const letter = this.availableLetters[index];
+    this.availableLetters.splice(index, 1);
     this.letterHints.push(letter);
     this.hintText.setText(`Hints: ${this.letterHints.join(' ')}`);
   }

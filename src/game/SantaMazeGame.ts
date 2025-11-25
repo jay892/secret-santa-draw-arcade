@@ -358,6 +358,7 @@ export class SantaMazeGame extends Phaser.Scene {
   private collectedOrnaments: number = 0;
   private totalOrnaments: number = 3;
   private letterHints: string[] = [];
+  private availableLetters: string[] = [];
   private timerText!: Phaser.GameObjects.Text;
   private hintText!: Phaser.GameObjects.Text;
   private timeRemaining: number = 60;
@@ -383,6 +384,12 @@ export class SantaMazeGame extends Phaser.Scene {
   }
 
   create() {
+    // Reset game state
+    this.letterHints = [];
+    this.availableLetters = this.getUniqueLetters();
+    this.collectedOrnaments = 0;
+    this.gameOver = false;
+
     // Calculate maze size based on screen
     const screenWidth = this.scale.width;
     const screenHeight = this.scale.height;
@@ -1014,10 +1021,23 @@ export class SantaMazeGame extends Phaser.Scene {
     }
   }
 
-  private getRandomLetter(): string {
-    // Get a random letter from the recipient's name
+  private getUniqueLetters(): string[] {
     const letters = this.recipient.replace(/\s/g, '').toUpperCase().split('');
-    return letters[Math.floor(Math.random() * letters.length)];
+    return [...new Set(letters)];
+  }
+
+  private getRandomLetter(): string {
+    // Refill available letters if exhausted
+    if (this.availableLetters.length === 0) {
+      this.availableLetters = this.getUniqueLetters();
+    }
+    if (this.availableLetters.length === 0) {
+      return '?';
+    }
+    const index = Math.floor(Math.random() * this.availableLetters.length);
+    const letter = this.availableLetters[index];
+    this.availableLetters.splice(index, 1);
+    return letter;
   }
 
   private handleWin() {

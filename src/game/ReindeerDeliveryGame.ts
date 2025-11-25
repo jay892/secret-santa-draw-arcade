@@ -146,6 +146,7 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
   private starsText!: Phaser.GameObjects.Text;
   private hintText!: Phaser.GameObjects.Text;
   private letterHints: string[] = [];
+  private availableLetters: string[] = [];
   private collectedStars = 0;
   private totalStars = 4;
   private timeRemaining = 45;
@@ -168,6 +169,7 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
     this.gameOver = false;
     this.collectedStars = 0;
     this.letterHints = [];
+    this.availableLetters = this.getUniqueLetters();
     this.timeRemaining = 45;
     this.pointerY = null;
 
@@ -662,13 +664,23 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
     this.time.delayedCall(600, () => particles.destroy());
   }
 
-  private getRandomLetter(): string {
+  private getUniqueLetters(): string[] {
     const letters = this.recipient.replace(/\s/g, '').toUpperCase().split('');
-    if (letters.length === 0) {
+    return [...new Set(letters)];
+  }
+
+  private getRandomLetter(): string {
+    // Refill available letters if exhausted
+    if (this.availableLetters.length === 0) {
+      this.availableLetters = this.getUniqueLetters();
+    }
+    if (this.availableLetters.length === 0) {
       return '?';
     }
-    const index = Phaser.Math.Between(0, letters.length - 1);
-    return letters[index];
+    const index = Phaser.Math.Between(0, this.availableLetters.length - 1);
+    const letter = this.availableLetters[index];
+    this.availableLetters.splice(index, 1);
+    return letter;
   }
 
   update() {
