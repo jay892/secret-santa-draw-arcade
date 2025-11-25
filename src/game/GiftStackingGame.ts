@@ -357,11 +357,13 @@ export class GiftStackingGame extends Phaser.Scene {
 
   private startSpawning() {
     this.spawnTimer = this.time.addEvent({
-      delay: Phaser.Math.Between(1200, 2000),
+      delay: 2500,
       callback: this.spawnGift,
       callbackScope: this,
       loop: true,
     });
+    // Spawn first gift immediately
+    this.spawnGift();
   }
 
   private spawnGift() {
@@ -408,36 +410,17 @@ export class GiftStackingGame extends Phaser.Scene {
 
     const body = gift.body as Phaser.Physics.Arcade.Body;
     body.setAllowGravity(true);
-    body.setGravityY(320);
-    body.setSize(width * 0.9, height * 0.9);
+    body.setGravityY(400);
+    body.setSize(width * 0.85, height * 0.85);
     body.setMass(mass);
-    body.setBounce(0.05, 0.05);
-    body.setDrag(90, 70);
-    body.setAngularDrag(240);
-    body.setMaxVelocity(260, 420);
+    body.setBounce(0.1, 0.1);
+    body.setDrag(50, 0);
+    body.setFriction(1, 0);
+    body.setMaxVelocity(300, 500);
     body.setCollideWorldBounds(true);
 
-    // Add slight rotation
-    gift.setRotation(Phaser.Math.FloatBetween(-0.08, 0.08));
-    gift.setAngularVelocity(Phaser.Math.Between(-15, 15));
-
-    // Check if gift is stacked after a short delay
-    this.time.delayedCall(500, () => {
-      this.checkGiftStacked(gift, size);
-    });
-
-    // Auto-destroy if it falls off screen
-    this.time.delayedCall(10000, () => {
-      if (gift && gift.active) {
-        const stackedGift = this.stackedGifts.find(sg => sg.sprite === gift);
-        if (!stackedGift || !stackedGift.stacked) {
-          gift.destroy();
-        }
-      }
-    });
-
-    // Check if gift falls off bottom of screen
-    gift.setCollideWorldBounds(true);
+    // No rotation - keep gifts upright for easier stacking
+    gift.setRotation(0);
   }
 
   private checkGiftStacked(
@@ -446,82 +429,46 @@ export class GiftStackingGame extends Phaser.Scene {
   ) {
     if (!gift || !gift.active || this.gameOver) return;
 
-    // Check if gift is on platform or on another gift
+    // Skip if already stacked
+    const existing = this.stackedGifts.find(sg => sg.sprite === gift);
+    if (existing && existing.stacked) return;
+
     const body = gift.body as Phaser.Physics.Arcade.Body;
-    const giftY = gift.y;
-    const platformY = this.platform.y - this.platform.displayHeight / 2;
 
-    // If gift is below platform level, it might be stacked
-    if (giftY > platformY + 20) {
-      // Check if it's touching platform or another stacked gift
-      const giftRect = new Phaser.Geom.Rectangle(
-        body.x - body.width / 2,
-        body.y - body.height / 2,
-        body.width,
-        body.height
-      );
-      const platformBody = this.platform.body as Phaser.Physics.Arcade.Body;
-      const platformRect = new Phaser.Geom.Rectangle(
-        platformBody.x - platformBody.width / 2,
-        platformBody.y - platformBody.height / 2,
-        platformBody.width,
-        platformBody.height
-      );
-      const isOnPlatform = Phaser.Geom.Intersects.RectangleToRectangle(
-        giftRect,
-        platformRect
-      );
+    // Check if gift is near/on the platform level (y position check)
+    const platformTop = this.platform.y - this.platform.displayHeight / 2;
+    const giftBottom = gift.y + gift.displayHeight / 2;
+    const isNearPlatformLevel = giftBottom >= platformTop - 10;
 
-      let isOnStackedGift = false;
-      for (const stacked of this.stackedGifts) {
-        if (stacked.stacked && stacked.sprite.active) {
-          const stackedBody = stacked.sprite.body as Phaser.Physics.Arcade.Body;
-          const stackedRect = new Phaser.Geom.Rectangle(
-            stackedBody.x - stackedBody.width / 2,
-            stackedBody.y - stackedBody.height / 2,
-            stackedBody.width,
-            stackedBody.height
-          );
-          if (
-            Phaser.Geom.Intersects.RectangleToRectangle(giftRect, stackedRect)
-          ) {
-            isOnStackedGift = true;
-            break;
-          }
-        }
+    // Check if gift is touching something below it OR has very low vertical velocity
+    const isTouchingDown = body.touching.down || body.blocked.down;
+    const hasSettled = Math.abs(body.velocity.y) < 50;
+
+    // Check if gift is above the platform horizontally
+    const platformLeft = this.platform.x - this.platform.displayWidth / 2;
+    const platformRight = this.platform.x + this.platform.displayWidth / 2;
+    const isAbovePlatform = gift.x >= platformLeft - 50 && gift.x <= platformRight + 50;
+
+    if (isNearPlatformLevel && (isTouchingDown || hasSettled) && isAbovePlatform) {
+      // Mark as stacked
+      if (!existing) {
+        this.stackedGifts.push({ sprite: gift, size, stacked: true });
+      } else {
+        existing.stacked = true;
       }
+      this.currentStack += 1;
+      this.stackText.setText(
+        `Stack: ${this.currentStack}/${this.targetStack} 🎁`
+      );
+      this.revealHint();
+      this.emitSparkles(gift.x, gift.y, 1.0);
 
-      if (isOnPlatform || isOnStackedGift) {
-        // Check if gift is relatively stable (not moving too fast)
-        const velocity = body.velocity;
-        const angularVelocity = body.angularVelocity ?? 0;
-        if (
-          Math.abs(velocity.x) < 45 &&
-          Math.abs(velocity.y) < 45 &&
-          Math.abs(angularVelocity) < 35
-        ) {
-          // Mark as stacked
-          const existing = this.stackedGifts.find(sg => sg.sprite === gift);
-          if (!existing) {
-            this.stackedGifts.push({ sprite: gift, size, stacked: true });
-            this.currentStack += 1;
-            this.stackText.setText(
-              `Stack: ${this.currentStack}/${this.targetStack} 🎁`
-            );
-            this.revealHint();
-            this.emitSparkles(gift.x, gift.y, 1.0);
+      // Make gift more stable once stacked
+      body.setBounce(0, 0);
+      body.setDrag(100, 0);
 
-            // Make gift more stable
-            body.setDrag(200, 200);
-            body.setAngularDrag(600);
-            body.setVelocity(0);
-            gift.setAngularVelocity(0);
-
-            if (this.currentStack >= this.targetStack) {
-              this.handleWin();
-            }
-          }
-        }
+      if (this.currentStack >= this.targetStack) {
+        this.handleWin();
       }
     }
   }
@@ -540,6 +487,7 @@ export class GiftStackingGame extends Phaser.Scene {
   }
 
   private getUniqueLetters(): string[] {
+    if (!this.recipient) return [];
     const letters = this.recipient.replace(/\s/g, '').toUpperCase().split('');
     return [...new Set(letters)];
   }
@@ -787,8 +735,17 @@ export class GiftStackingGame extends Phaser.Scene {
       }
     }
 
-    const body = this.platform.body as Phaser.Physics.Arcade.Body;
-    body.setVelocityX(dirX * speed);
+    const platformBody = this.platform.body as Phaser.Physics.Arcade.Body;
+    platformBody.setVelocityX(dirX * speed);
+
+    // Move stacked gifts with the platform (Arcade Physics doesn't do this automatically)
+    this.stackedGifts.forEach(stackedGift => {
+      if (stackedGift.stacked && stackedGift.sprite.active) {
+        const giftBody = stackedGift.sprite.body as Phaser.Physics.Arcade.Body;
+        // Apply platform's horizontal velocity to stacked gifts
+        giftBody.setVelocityX(platformBody.velocity.x);
+      }
+    });
 
     // Check for gifts that fell off the bottom
     this.gifts.children.entries.forEach(gift => {
@@ -798,62 +755,27 @@ export class GiftStackingGame extends Phaser.Scene {
       }
     });
 
-    // Continuously check if gifts are stacked
+    // Continuously check if non-stacked gifts should be counted as stacked
+    this.gifts.children.entries.forEach(gift => {
+      const sprite = gift as Phaser.Physics.Arcade.Sprite;
+      if (!sprite || !sprite.active) return;
+
+      // Skip if already tracked as stacked
+      const existing = this.stackedGifts.find(sg => sg.sprite === sprite);
+      if (existing && existing.stacked) return;
+
+      const size = sprite.getData('size') as 'small' | 'medium' | 'large';
+      if (size) {
+        this.checkGiftStacked(sprite, size);
+      }
+    });
+
+    // Check if previously stacked gifts have fallen off screen
     this.stackedGifts.forEach(stackedGift => {
       if (stackedGift.stacked && stackedGift.sprite.active) {
-        const body = stackedGift.sprite.body as Phaser.Physics.Arcade.Body;
-        const velocity = body.velocity;
-        // If gift is moving too fast downward, it might have fallen
-        if (velocity.y > 100) {
-          const boundsRect = new Phaser.Geom.Rectangle(
-            body.x - body.width / 2,
-            body.y - body.height / 2,
-            body.width,
-            body.height
-          );
-          const platformBody = this.platform.body as Phaser.Physics.Arcade.Body;
-          const platformRect = new Phaser.Geom.Rectangle(
-            platformBody.x - platformBody.width / 2,
-            platformBody.y - platformBody.height / 2,
-            platformBody.width,
-            platformBody.height
-          );
-          // Check if still on platform or another gift
-          let isSupported = Phaser.Geom.Intersects.RectangleToRectangle(
-            boundsRect,
-            platformRect
-          );
-          if (!isSupported) {
-            for (const other of this.stackedGifts) {
-              if (
-                other !== stackedGift &&
-                other.stacked &&
-                other.sprite.active
-              ) {
-                const otherBody = other.sprite
-                  .body as Phaser.Physics.Arcade.Body;
-                const otherRect = new Phaser.Geom.Rectangle(
-                  otherBody.x - otherBody.width / 2,
-                  otherBody.y - otherBody.height / 2,
-                  otherBody.width,
-                  otherBody.height
-                );
-                if (
-                  Phaser.Geom.Intersects.RectangleToRectangle(
-                    boundsRect,
-                    otherRect
-                  )
-                ) {
-                  isSupported = true;
-                  break;
-                }
-              }
-            }
-          }
-          if (!isSupported && stackedGift.sprite.y > this.scale.height - 20) {
-            // Gift fell off
-            this.handleGiftFallen(stackedGift.sprite);
-          }
+        // If gift fell below screen, mark as fallen
+        if (stackedGift.sprite.y > this.scale.height + 50) {
+          this.handleGiftFallen(stackedGift.sprite);
         }
       }
     });

@@ -148,13 +148,15 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
   private letterHints: string[] = [];
   private availableLetters: string[] = [];
   private collectedStars = 0;
-  private totalStars = 4;
+  private totalStars = 3;
   private timeRemaining = 45;
   private timerEvent!: Phaser.Time.TimerEvent;
   private recipient = '';
   private gameOver = false;
   private pointerY: number | null = null;
   private gameConfigData!: GameConfig;
+  private gameHeight = 0;
+  private gameOffsetY = 0;
 
   constructor() {
     super({ key: 'ReindeerDeliveryGame' });
@@ -173,8 +175,13 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
     this.timeRemaining = 45;
     this.pointerY = null;
 
+    // Constrain game height for tall screens
+    const MAX_GAME_HEIGHT = 600;
+    this.gameHeight = Math.min(this.scale.height, MAX_GAME_HEIGHT);
+    this.gameOffsetY = (this.scale.height - this.gameHeight) / 2;
+
     this.cameras.main.setBackgroundColor('#041830');
-    this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
+    this.physics.world.setBounds(0, this.gameOffsetY, this.scale.width, this.gameHeight);
     this.buildTextures();
     this.createBackground();
     this.createSnow();
@@ -273,7 +280,7 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
 
   private createPlayer() {
     this.player = this.physics.add
-      .sprite(80, this.scale.height / 2, 'rd-sleigh')
+      .sprite(80, this.gameOffsetY + this.gameHeight / 2, 'rd-sleigh')
       .setDepth(2);
     this.player.setCollideWorldBounds(true);
     const body = this.player.body as Phaser.Physics.Arcade.Body;
@@ -350,29 +357,27 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
 
   private spawnCloud() {
     if (this.gameOver) return;
-    const y = Phaser.Math.Between(40, this.scale.height - 40);
+    const y = Phaser.Math.Between(this.gameOffsetY + 40, this.gameOffsetY + this.gameHeight - 40);
     const cloud = this.clouds.create(this.scale.width + 50, y, 'rd-cloud');
     cloud.setDepth(0);
     cloud.setVelocityX(-Phaser.Math.Between(60, 120));
     (cloud.body as Phaser.Physics.Arcade.Body).setAllowGravity(false);
-    this.time.delayedCall(10000, () => cloud.destroy());
   }
 
   private spawnBird() {
     if (this.gameOver) return;
-    const y = Phaser.Math.Between(30, this.scale.height - 30);
+    const y = Phaser.Math.Between(this.gameOffsetY + 30, this.gameOffsetY + this.gameHeight - 30);
     const bird = this.birds.create(this.scale.width + 20, y, 'rd-bird');
     bird.setDepth(1);
     bird.setVelocityX(-Phaser.Math.Between(150, 220));
     bird.setFlipX(true);
     (bird.body as Phaser.Physics.Arcade.Body).setAllowGravity(false);
     bird.setRotation(Phaser.Math.FloatBetween(-0.05, 0.05));
-    this.time.delayedCall(8000, () => bird.destroy());
   }
 
   private spawnGift() {
     if (this.gameOver) return;
-    const y = Phaser.Math.Between(60, this.scale.height - 60);
+    const y = Phaser.Math.Between(this.gameOffsetY + 60, this.gameOffsetY + this.gameHeight - 60);
     const gift = this.gifts.create(this.scale.width + 30, y, 'rd-gift');
     gift.setDepth(1);
     gift.setVelocityX(-Phaser.Math.Between(110, 160));
@@ -387,12 +392,11 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
       repeat: -1,
       ease: 'Sine.easeInOut',
     });
-    this.time.delayedCall(8000, () => gift.destroy());
   }
 
   private spawnStar() {
     if (this.gameOver || this.stars.countActive(true) >= 2) return;
-    const y = Phaser.Math.Between(50, this.scale.height - 50);
+    const y = Phaser.Math.Between(this.gameOffsetY + 50, this.gameOffsetY + this.gameHeight - 50);
     const star = this.stars.create(this.scale.width + 40, y, 'rd-star');
     star.setDepth(2);
     star.setScale(1.2);
@@ -429,8 +433,6 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
       },
       this
     );
-
-    this.time.delayedCall(8000, () => star.destroy());
   }
 
   private collectGift: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback = (
@@ -665,6 +667,7 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
   }
 
   private getUniqueLetters(): string[] {
+    if (!this.recipient) return [];
     const letters = this.recipient.replace(/\s/g, '').toUpperCase().split('');
     return [...new Set(letters)];
   }
@@ -704,5 +707,21 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
       }
     }
     body.setVelocity(0, dirY * speed);
+
+    // Clean up objects that have left the screen (position-based instead of timer-based)
+    // Collect sprites to destroy first, then destroy them (avoid modifying while iterating)
+    const toDestroy: Phaser.Physics.Arcade.Sprite[] = [];
+    const collectOffscreen = (obj: Phaser.GameObjects.GameObject) => {
+      const sprite = obj as Phaser.Physics.Arcade.Sprite;
+      if (sprite.active && sprite.x < -100) {
+        toDestroy.push(sprite);
+      }
+      return true;
+    };
+    this.clouds.children.iterate(collectOffscreen);
+    this.birds.children.iterate(collectOffscreen);
+    this.gifts.children.iterate(collectOffscreen);
+    this.stars.children.iterate(collectOffscreen);
+    toDestroy.forEach(sprite => sprite.destroy());
   }
 }

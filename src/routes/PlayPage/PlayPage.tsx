@@ -102,15 +102,15 @@ export default function PlayPage() {
       return {
         name: 'Reindeer Delivery Dash',
         mission:
-          'Guide Santa’s sleigh through the moonlit sky and collect 4 twinkling star ornaments before time runs out.',
+          "Guide Santa's sleigh through the moonlit sky and collect 3 twinkling star ornaments before time runs out.",
         steps: [
           'Dodge clouds and birds while scooping up drifting gifts for bonus sparkles.',
           'Each star you grab reveals a letter hint about your Secret Santa recipient.',
-          'Snag all 4 stars in 45 seconds to complete the delivery and unlock the name!',
+          'Snag all 3 stars in 45 seconds to complete the delivery and unlock the name!',
         ],
         controls:
           'Arrow Keys (↑/↓), W/S, or drag up and down on touch screens to steer the sleigh vertically.',
-        duration: '45 seconds • Collect 4 stars',
+        duration: '45 seconds • Collect 3 stars',
       };
     }
     if (selectedGame === 'StockingMatchGame') {

@@ -1022,6 +1022,7 @@ export class SantaMazeGame extends Phaser.Scene {
   }
 
   private getUniqueLetters(): string[] {
+    if (!this.recipient) return [];
     const letters = this.recipient.replace(/\s/g, '').toUpperCase().split('');
     return [...new Set(letters)];
   }

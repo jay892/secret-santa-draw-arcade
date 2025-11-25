@@ -23,7 +23,7 @@ bun build  # Build for production
 Each participant gets a random game challenge:
 
 - **[Santa Maze](src/game/SantaMazeGame.ts)** - Navigate a peppermint maze, collect 3 ornaments , then reach the present
-- **[Reindeer Delivery Dash](src/game/ReindeerDeliveryGame.ts)** - Fly Santa's sleigh through the sky and collect 4 stars
+- **[Reindeer Delivery Dash](src/game/ReindeerDeliveryGame.ts)** - Fly Santa's sleigh through the sky and collect 3 stars
 - **[Stocking Fill Match](src/game/StockingMatchGame.ts)** - Memory game: match 6 pairs of Christmas stockings
 - **[Gift Stack Challenge](src/game/GiftStackingGame.ts)** - Balance and stack 8 falling gifts on a moving platform
 
