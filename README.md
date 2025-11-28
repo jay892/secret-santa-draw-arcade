@@ -10,8 +10,6 @@ _Because why just draw names when you can earn them through retro arcade games?_
 
 Every year I over-engineer our family's Secret Santa allocation. This year: retro arcade games built with Phaser.js. Participants play a randomly selected Christmas mini-game to unlock their Secret Santa assignment. No backend, no accounts, just pure client-side gaming fun.
 
-Built one Thursday evening while exploring Composer 1 (Cursor's AI model) and Phaser.js game development.
-
 **Tech Stack:** React, TypeScript, Phaser.js, Bun
 
 ## 🚀 Getting Started
