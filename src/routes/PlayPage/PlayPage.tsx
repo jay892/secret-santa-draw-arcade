@@ -105,29 +105,29 @@ export default function PlayPage() {
       return {
         name: 'Reindeer Delivery Dash',
         mission:
-          "Guide Santa's sleigh through the moonlit sky and collect 3 twinkling star ornaments before time runs out.",
+          "Guide Santa's sleigh through the moonlit sky and collect 4 twinkling stars before time runs out.",
         steps: [
           'Dodge clouds and birds while scooping up drifting gifts for bonus sparkles.',
           'Each star you grab reveals a letter hint about your Secret Santa recipient.',
-          'Snag all 3 stars in 45 seconds to complete the delivery and unlock the name!',
+          'Snag all 4 stars in 60 seconds to complete the delivery and unlock the name!',
         ],
         controls:
           'Arrow Keys (↑/↓), W/S, or drag up and down on touch screens to steer the sleigh vertically.',
-        duration: '45 seconds • Collect 3 stars',
+        duration: '60 seconds • Collect 4 stars',
       };
     }
     if (selectedGame === 'StockingMatchGame') {
       return {
         name: 'Stocking Fill Match',
         mission:
-          'Flip cozy stockings to uncover ornaments, candy canes, and bells—match every pair to finish decorating the mantle.',
+          'Flip cards to match holiday icons—ornaments, candy canes, bells, stockings, and snowflakes!',
         steps: [
           'Tap or click cards to reveal them, and remember their spots to find pairs.',
           'Each successful match sprinkles a new letter hint about your recipient.',
-          'Match all 6 pairs before the timer hits zero to reveal the name!',
+          'Match all 5 pairs before the timer hits zero to reveal the name!',
         ],
         controls: 'Tap / Click cards (touch & mouse friendly).',
-        duration: '80 seconds • Match 6 pairs',
+        duration: '60 seconds • Match 5 pairs',
       };
     }
     if (selectedGame === 'GiftStackingGame') {
@@ -137,11 +137,11 @@ export default function PlayPage() {
           'Balance falling gifts on the platform and stack them high! Each stable gift reveals a letter hint about your Secret Santa recipient.',
         steps: [
           'Use arrow keys or touch to move the platform left and right.',
-          'Catch falling gifts and stack them carefully—they can tip over!',
-          'Stack 8 gifts successfully before time runs out to unlock the name!',
+          'Catch falling gifts and stack them neatly in the grid.',
+          'Stack 6 gifts successfully before time runs out to unlock the name!',
         ],
         controls: 'Arrow Keys (←/→), A/D, or drag left/right on touch screens.',
-        duration: '60 seconds • Stack 8 gifts',
+        duration: '60 seconds • Stack 6 gifts',
       };
     }
     if (selectedGame === 'SnowballSlingshotGame') {
