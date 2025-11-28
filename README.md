@@ -27,11 +27,11 @@ Each participant gets a random game challenge. Complete the challenge to reveal 
 
 |                                                                 |                                                                                                                                               |
 | :-------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-|       <img src="README/santa-maze-game.png" height="300">       | **[Santa Maze](src/game/SantaMazeGame.ts)**<br>Navigate a peppermint maze, collect 3 ornaments, then reach the present                        |
-| <img src="README/reindeer-delivery-dash-game.png" height="300"> | **[Reindeer Delivery Dash](src/game/ReindeerDeliveryGame.ts)**<br>Fly Santa's sleigh through the sky, collect 4 stars while dodging obstacles |
-|  <img src="README/stocking-fill-match-game.png" height="300">   | **[Stocking Fill Match](src/game/StockingMatchGame.ts)**<br>Memory game: match 6 pairs of holiday icons                                       |
-|  <img src="README/gift-stack-challenge-game.png" height="300">  | **[Gift Stack Challenge](src/game/GiftStackingGame.ts)**<br>Balance and stack 6 falling gifts on a moving platform                            |
-|   <img src="README/snowball-slingshot-game.png" height="300">   | **[Snowball Slingshot](src/game/SnowballSlingshotGame.ts)**<br>Aim and launch snowballs to knock 5 ornaments off the Christmas tree           |
+|       <img src="README/santa-maze-game.gif" height="300">       | **[Santa Maze](src/game/SantaMazeGame.ts)**<br>Navigate a peppermint maze, collect 3 ornaments, then reach the present                        |
+| <img src="README/reindeer-delivery-dash-game.gif" height="300"> | **[Reindeer Delivery Dash](src/game/ReindeerDeliveryGame.ts)**<br>Fly Santa's sleigh through the sky, collect 4 stars while dodging obstacles |
+|  <img src="README/stocking-fill-match-game.gif" height="300">   | **[Stocking Fill Match](src/game/StockingMatchGame.ts)**<br>Memory game: match 6 pairs of holiday icons                                       |
+|  <img src="README/gift-stack-challenge-game.gif" height="300">  | **[Gift Stack Challenge](src/game/GiftStackingGame.ts)**<br>Balance and stack 6 falling gifts on a moving platform                            |
+|   <img src="README/snowball-slingshot-game.gif" height="300">   | **[Snowball Slingshot](src/game/SnowballSlingshotGame.ts)**<br>Aim and launch snowballs to knock 5 ornaments off the Christmas tree           |
 
 ## 📖 How It Works
 
