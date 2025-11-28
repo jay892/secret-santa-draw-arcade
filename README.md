@@ -1,7 +1,7 @@
 <div align="center">
   <img src="src/logo.png" alt="Secret Santa Draw Arcade Logo" width="200">
 
-[Live Demo](https://eddmann.github.io/secret-santa-draw-arcade/)
+[Live Demo](https://eddmann.com/secret-santa-draw-arcade/)
 
 </div>
 
