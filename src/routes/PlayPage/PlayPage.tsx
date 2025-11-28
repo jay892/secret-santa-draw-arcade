@@ -6,6 +6,7 @@ import { SantaMazeGame } from '../../game/SantaMazeGame';
 import { ReindeerDeliveryGame } from '../../game/ReindeerDeliveryGame';
 import { StockingMatchGame } from '../../game/StockingMatchGame';
 import { GiftStackingGame } from '../../game/GiftStackingGame';
+import { SnowballSlingshotGame } from '../../game/SnowballSlingshotGame';
 import logo from '../../logo.png';
 
 type GameState = 'intro' | 'playing' | 'completed';
@@ -14,7 +15,8 @@ type GameKey =
   | 'SantaMazeGame'
   | 'ReindeerDeliveryGame'
   | 'StockingMatchGame'
-  | 'GiftStackingGame';
+  | 'GiftStackingGame'
+  | 'SnowballSlingshotGame';
 
 export default function PlayPage() {
   const [searchParams] = useSearchParams();
@@ -92,6 +94,7 @@ export default function PlayPage() {
       'ReindeerDeliveryGame',
       'StockingMatchGame',
       'GiftStackingGame',
+      'SnowballSlingshotGame',
     ];
     const randomChoice = choices[Math.floor(Math.random() * choices.length)];
     setSelectedGame(randomChoice);
@@ -141,6 +144,20 @@ export default function PlayPage() {
         duration: '60 seconds • Stack 8 gifts',
       };
     }
+    if (selectedGame === 'SnowballSlingshotGame') {
+      return {
+        name: 'Snowball Slingshot',
+        mission:
+          'Launch snowballs at the ornaments on the Christmas tree! Pull back the slingshot and aim carefully to knock down all 5 ornaments.',
+        steps: [
+          'Drag the snowball back to pull the slingshot—the further you pull, the more power!',
+          'Release to fire and watch your snowball arc through the air.',
+          'Each ornament you hit reveals a letter hint about your Secret Santa recipient.',
+        ],
+        controls: 'Drag snowball back and release to fire (touch & mouse friendly).',
+        duration: '60 seconds • Hit 5 ornaments',
+      };
+    }
     return {
       name: 'Santa Maze',
       mission:
@@ -188,6 +205,7 @@ export default function PlayPage() {
           ReindeerDeliveryGame,
           StockingMatchGame,
           GiftStackingGame,
+          SnowballSlingshotGame,
         ],
         scale: {
           mode: Phaser.Scale.FIT,
