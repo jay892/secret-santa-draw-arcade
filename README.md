@@ -1,7 +1,8 @@
 <div align="center">
   <img src="src/logo.png" alt="Secret Santa Draw Arcade Logo" width="200">
 
-  [Live Demo](https://eddmann.github.io/secret-santa-draw-arcade/)
+[Live Demo](https://eddmann.github.io/secret-santa-draw-arcade/)
+
 </div>
 
 # 🎮 Secret Santa Draw Arcade
@@ -22,75 +23,15 @@ bun build  # Build for production
 
 ## 🎯 The Games
 
-Each participant gets a random game challenge:
+Each participant gets a random game challenge. Complete the challenge to reveal your Secret Santa recipient letter by letter!
 
-- **[Santa Maze](src/game/SantaMazeGame.ts)** - Navigate a peppermint maze, collect 3 ornaments, then reach the present
-- **[Reindeer Delivery Dash](src/game/ReindeerDeliveryGame.ts)** - Fly Santa's sleigh through the sky, collect 4 stars while dodging obstacles
-- **[Stocking Fill Match](src/game/StockingMatchGame.ts)** - Memory game: match 6 pairs of holiday icons
-- **[Gift Stack Challenge](src/game/GiftStackingGame.ts)** - Balance and stack 6 falling gifts on a moving platform
-- **[Snowball Slingshot](src/game/SnowballSlingshotGame.ts)** - Aim and launch snowballs to knock 5 ornaments off the Christmas tree
-
-Complete the challenge to reveal your Secret Santa recipient letter by letter!
-
-## 📸 Screenshots
-
-<!--
-<table>
-<tr>
-<td width="50%">
-
-**Event Creation**
-
-![Event Creation](screenshots/event-creation.png)
-
-</td>
-<td width="50%">
-
-**Secret Santa Revealed**
-
-![Secret Santa Revealed](screenshots/reveal.png)
-
-</td>
-</tr>
-<tr>
-<td width="25%">
-
-**Santa Maze**
-
-![Santa Maze Game](screenshots/santa-maze.png)
-
-</td>
-<td width="25%">
-
-**Reindeer Delivery Dash**
-
-![Reindeer Delivery Dash](screenshots/reindeer-delivery.png)
-
-</td>
-<td width="25%">
-
-**Stocking Fill Match**
-
-![Stocking Fill Match](screenshots/stocking-match.png)
-
-</td>
-<td width="25%">
-
-**Gift Stack Challenge**
-
-![Gift Stack Challenge](screenshots/gift-stack.png)
-
-</td>
-<td width="25%">
-
-**Snowball Slingshot**
-
-![Snowball Slingshot](screenshots/snowball-slingshot.png)
-
-</td>
-</tr>
-</table>
--->
+|                                                                 |                                                                                                                                               |
+| :-------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+|       <img src="README/santa-maze-game.png" height="300">       | **[Santa Maze](src/game/SantaMazeGame.ts)**<br>Navigate a peppermint maze, collect 3 ornaments, then reach the present                        |
+| <img src="README/reindeer-delivery-dash-game.png" height="300"> | **[Reindeer Delivery Dash](src/game/ReindeerDeliveryGame.ts)**<br>Fly Santa's sleigh through the sky, collect 4 stars while dodging obstacles |
+|  <img src="README/stocking-fill-match-game.png" height="300">   | **[Stocking Fill Match](src/game/StockingMatchGame.ts)**<br>Memory game: match 6 pairs of holiday icons                                       |
+|  <img src="README/gift-stack-challenge-game.png" height="300">  | **[Gift Stack Challenge](src/game/GiftStackingGame.ts)**<br>Balance and stack 6 falling gifts on a moving platform                            |
+|   <img src="README/snowball-slingshot-game.png" height="300">   | **[Snowball Slingshot](src/game/SnowballSlingshotGame.ts)**<br>Aim and launch snowballs to knock 5 ornaments off the Christmas tree           |
 
 ## 📖 How It Works
 
@@ -98,6 +39,10 @@ Complete the challenge to reveal your Secret Santa recipient letter by letter!
 2. Set any exclusions (e.g., couples shouldn't get each other)
 3. Generate unique game links for each participant
 4. Share the links - each person plays their game to reveal their match
+
+|              Event Creation              |              Generated Links              |
+| :--------------------------------------: | :---------------------------------------: |
+| ![Event Creation](README/draw-entry.png) | ![Generated Links](README/draw-links.png) |
 
 The allocation algorithm ensures valid pairings while respecting exclusions. All data is encoded in the URL, so there's no backend or database needed.
 
