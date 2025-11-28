@@ -148,8 +148,8 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
   private letterHints: string[] = [];
   private availableLetters: string[] = [];
   private collectedStars = 0;
-  private totalStars = 3;
-  private timeRemaining = 45;
+  private totalStars = 4;
+  private timeRemaining = 60;
   private timerEvent!: Phaser.Time.TimerEvent;
   private recipient = '';
   private gameOver = false;
@@ -172,7 +172,7 @@ export class ReindeerDeliveryGame extends Phaser.Scene {
     this.collectedStars = 0;
     this.letterHints = [];
     this.availableLetters = this.getUniqueLetters();
-    this.timeRemaining = 45;
+    this.timeRemaining = 60;
     this.pointerY = null;
 
     // Constrain game height for tall screens

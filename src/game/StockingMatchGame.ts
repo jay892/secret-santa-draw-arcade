@@ -234,13 +234,13 @@ export class StockingMatchGame extends Phaser.Scene {
   private flippedCards: MemoryCard[] = [];
   private lockBoard = false;
   private matchesFound = 0;
-  private totalPairs = 6;
+  private totalPairs = 5;
   private timerText!: Phaser.GameObjects.Text;
   private matchesText!: Phaser.GameObjects.Text;
   private hintText!: Phaser.GameObjects.Text;
   private letterHints: string[] = [];
   private availableLetters: string[] = [];
-  private timeRemaining = 80;
+  private timeRemaining = 60;
   private timerEvent!: Phaser.Time.TimerEvent;
   private recipient = '';
   private gameOver = false;
@@ -260,7 +260,7 @@ export class StockingMatchGame extends Phaser.Scene {
     this.matchesFound = 0;
     this.letterHints = [];
     this.availableLetters = this.getUniqueLetters();
-    this.timeRemaining = 80;
+    this.timeRemaining = 60;
     this.lockBoard = false;
     this.cards = [];
     this.flippedCards = [];

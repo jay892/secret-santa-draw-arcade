@@ -119,7 +119,7 @@ export class GiftStackingGame extends Phaser.Scene {
   private timerEvent!: Phaser.Time.TimerEvent;
   private recipient = '';
   private gameOver = false;
-  private targetStack = 8;
+  private targetStack = 6;
   private currentStack = 0;
   private spawnTimer!: Phaser.Time.TimerEvent;
   private gameConfigData!: GameConfig;
